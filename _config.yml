@@ -1,0 +1,5 @@
+theme: jekyll-theme-chirpy
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+  
