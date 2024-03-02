@@ -53,12 +53,13 @@
 
     .sidebar-tier ul {
       padding-left: 20px;
-      display: none;
-      transition: display 0.3s ease-in-out;
+      transition: max-height 0.3s ease-in-out;
+      max-height: 0;
+      overflow: hidden;
     }
 
     .sidebar-tier.open ul {
-      display: block;
+      max-height: 1000px;
     }
 
     .sidebar-tier ul li {
@@ -115,9 +116,8 @@
 
     .nav-buttons {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 10px;
+      right: 10px;
       display: none;
     }
 
@@ -131,7 +131,7 @@
       border: 2px solid #000000;
       cursor: pointer;
       box-shadow: 1px 1px 5px #000000;
-      margin-right: 10px;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -184,7 +184,10 @@
   </div>
 
   <div class="gallery-container">
-    <div class="gallery" id="imageGallery"></div>
+    <div class="gallery" id="imageGallery">
+      <img src="blank.png" alt="Image">
+      <img src="blanket.jpg" alt="Image">
+    </div>
     <div class="nav-buttons">
       <button onclick="prevImage()">Previous</button>
       <button onclick="randomImage()">Random</button>
@@ -198,13 +201,16 @@
     var totalImages = images.length;
     var galleryContainer = document.getElementById("imageGallery");
 
-    // Create img elements for each image
     images.forEach(function(image) {
       var imgElement = document.createElement("img");
       imgElement.src = image;
       imgElement.alt = "Image";
       galleryContainer.appendChild(imgElement);
     });
+
+    function toggleList(element) {
+      element.parentElement.classList.toggle("open");
+    }
 
     function prevImage() {
       currentImage = (currentImage - 1 + totalImages) % totalImages;
