@@ -90,10 +90,11 @@
       padding: 5px;
       border-radius: 10px;
       background-color: #f0f0f0;
-      max-width: calc(100vw - 440px); /* Adjusted for sidebar width and padding */
+      max-width: calc(100vw - 440px);
       margin-left: 400px;
-      margin-top: 20px; /* Adjusted for spacing */
+      margin-top: 20px;
       overflow: hidden;
+      position: relative;
     }
 
     .gallery {
@@ -114,16 +115,23 @@
 
     .nav-buttons {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+
+    .gallery-container:hover .nav-buttons {
+      display: block;
     }
 
     .nav-buttons button {
-      margin-right: 10px;
       padding: 5px 10px;
-      background-color: #ddd;
-      border: none;
+      background-color: #b3b3b3;
+      border: 2px solid #000000;
       cursor: pointer;
+      box-shadow: 1px 1px 5px #000000;
+      margin-right: 10px;
     }
   </style>
 </head>
@@ -177,12 +185,11 @@
 
   <div class="gallery-container">
     <div class="gallery" id="imageGallery"></div>
-  </div>
-
-  <div class="nav-buttons">
-    <button onclick="prevImage()">Previous</button>
-    <button onclick="randomImage()">Random</button>
-    <button onclick="nextImage()">Next</button>
+    <div class="nav-buttons">
+      <button onclick="prevImage()">Previous</button>
+      <button onclick="randomImage()">Random</button>
+      <button onclick="nextImage()">Next</button>
+    </div>
   </div>
 
   <script>
