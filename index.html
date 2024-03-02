@@ -23,14 +23,37 @@
     .sidebar-content {
       padding-top: 20px;
       text-align: left; /* Align lists to the left */
+      padding-left: 50px; /* Add 50px padding from the edge of the page */
     }
 
     .sidebar-tier {
       margin-bottom: 20px;
     }
 
+    .sidebar-tier h2 {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .sidebar-tier h2::after {
+      content: "\25BC"; /* Down arrow */
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .sidebar-tier.open h2::after {
+      content: "\25B2"; /* Up arrow */
+    }
+
     .sidebar-tier ul {
       padding-left: 20px; /* Add 20px padding to the left */
+      display: none; /* Hide the list by default */
+    }
+
+    .sidebar-tier.open ul {
+      display: block; /* Show the list when opened */
     }
 
     .sidebar-tier ul li {
@@ -51,7 +74,7 @@
   <div class="sidebar">
     <div class="sidebar-content">
       <div class="sidebar-tier">
-        <h2>Stuff</h2>
+        <h2 onclick="toggleList(this)">Stuff</h2>
         <ul>
           <li>1</li>
           <li>2</li>
@@ -61,7 +84,7 @@
         </ul>
       </div>
       <div class="sidebar-tier">
-        <h2>Temp</h2>
+        <h2 onclick="toggleList(this)">Temp</h2>
         <ul>
           <li>1</li>
           <li>2</li>
@@ -71,7 +94,7 @@
         </ul>
       </div>
       <div class="sidebar-tier">
-        <h2>Misc</h2>
+        <h2 onclick="toggleList(this)">Misc</h2>
         <ul>
           <li>1</li>
           <li>2</li>
@@ -89,6 +112,14 @@
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
   </div>
+
+  <script>
+    function toggleList(element) {
+      var ul = element.nextElementSibling;
+      element.parentElement.classList.toggle("open");
+      ul.style.display = (ul.style.display === "none") ? "block" : "none";
+    }
+  </script>
 </body>
 
 </html>
