@@ -18,6 +18,8 @@
       position: fixed;
       top: 0;
       left: 0;
+      overflow: hidden; /* Hide overflowing content */
+      transition: width 0.3s ease-in-out; /* Add transition for smooth width change */
     }
 
     .sidebar-content {
@@ -38,18 +40,20 @@
     .sidebar-tier h2::after {
       content: "\25BC"; /* Down arrow */
       position: absolute;
-      right: -20px;
+      right: 10px; /* Adjusted position */
       top: 50%;
       transform: translateY(-50%);
+      transition: transform 0.3s ease-in-out; /* Add transition for smooth transform */
     }
 
     .sidebar-tier.open h2::after {
-      content: "\25B2"; /* Up arrow */
+      transform: translateY(-50%) rotate(180deg); /* Rotate arrow when open */
     }
 
     .sidebar-tier ul {
       padding-left: 20px; /* Add 20px padding to the left */
       display: none; /* Hide the list by default */
+      transition: display 0.3s ease-in-out; /* Add transition for smooth display change */
     }
 
     .sidebar-tier.open ul {
