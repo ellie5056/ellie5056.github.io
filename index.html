@@ -63,12 +63,14 @@
     .sidebar-tier ul li {
       list-style-type: none; /* Remove default list styles */
       text-indent: 20px; /* Indent list items by 20px */
-      display: none; /* Hide list items by default */
-      transition: display 0.3s ease-in-out; /* Add transition for smooth display change */
+      opacity: 0; /* Initially hide list items */
+      transform: translateY(-20px); /* Slide list items up */
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Add transition for smooth appearance */
     }
 
     .sidebar-tier.open ul li {
-      display: block; /* Show list items when parent is open */
+      opacity: 1; /* Show list items when opened */
+      transform: translateY(0); /* Slide list items down */
     }
 
     .content {
@@ -76,6 +78,11 @@
       padding: 20px;
       font-family: Georgia, serif;
       font-size: 20px;
+    }
+
+    .line {
+      border-top: 1px solid #000;
+      margin: 50px 0;
     }
   </style>
 </head>
@@ -121,6 +128,10 @@
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
+    <div class="line"></div> <!-- Continuous line -->
+    <p style="margin-top: 50px;">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </p>
   </div>
 
   <script>
@@ -128,10 +139,6 @@
       var ul = element.nextElementSibling;
       element.parentElement.classList.toggle("open");
       ul.style.display = (ul.style.display === "none") ? "block" : "none";
-      var lis = ul.querySelectorAll("li");
-      for (var i = 0; i < lis.length; i++) {
-        lis[i].style.display = (ul.style.display === "none") ? "none" : "block";
-      }
     }
   </script>
 </body>
