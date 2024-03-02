@@ -9,6 +9,7 @@
     body {
       margin: 0;
       padding: 0;
+      font-family: Arial, sans-serif;
     }
 
     .sidebar {
@@ -18,14 +19,14 @@
       position: fixed;
       top: 0;
       left: 0;
-      overflow: hidden; /* Hide overflowing content */
-      transition: width 0.3s ease-in-out; /* Add transition for smooth width change */
+      overflow: hidden;
+      transition: width 0.3s ease-in-out;
     }
 
     .sidebar-content {
       padding-top: 20px;
-      text-align: left; /* Align lists to the left */
-      padding-left: 50px; /* Add 50px padding from the edge of the page */
+      text-align: left;
+      padding-left: 50px;
     }
 
     .sidebar-tier {
@@ -38,43 +39,43 @@
     }
 
     .sidebar-tier h2::after {
-      content: "\25BC"; /* Down arrow */
+      content: "\25BC";
       position: absolute;
-      right: 10px; /* Adjusted position */
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      transition: transform 0.3s ease-in-out; /* Add transition for smooth transform */
+      transition: transform 0.3s ease-in-out;
     }
 
     .sidebar-tier.open h2::after {
-      transform: translateY(-50%) rotate(180deg); /* Rotate arrow when open */
+      transform: translateY(-50%) rotate(180deg);
     }
 
     .sidebar-tier ul {
-      padding-left: 20px; /* Add 20px padding to the left */
-      display: none; /* Hide the list by default */
-      transition: display 0.3s ease-in-out; /* Add transition for smooth display change */
+      padding-left: 20px;
+      display: none;
+      transition: display 0.3s ease-in-out;
     }
 
     .sidebar-tier.open ul {
-      display: block; /* Show the list when opened */
+      display: block;
     }
 
     .sidebar-tier ul li {
-      list-style-type: none; /* Remove default list styles */
-      text-indent: 20px; /* Indent list items by 20px */
-      opacity: 0; /* Initially hide list items */
-      transform: translateY(-20px); /* Slide list items up */
-      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Add transition for smooth appearance */
+      list-style-type: none;
+      text-indent: 20px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     }
 
     .sidebar-tier.open ul li {
-      opacity: 1; /* Show list items when opened */
-      transform: translateY(0); /* Slide list items down */
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .content {
-      margin-left: 400px; /* Adjusted for sidebar width */
+      margin-left: 400px;
       padding: 20px;
       font-family: Georgia, serif;
       font-size: 20px;
@@ -85,24 +86,30 @@
       margin: 50px 0;
     }
 
-    .gallery {
-      position: relative;
-      width: calc(100% - 400px); /* Adjusted for sidebar width */
-      height: calc(100vh - 50px); /* Adjusted for header height and some spacing */
+    .gallery-container {
+      padding: 5px;
+      border-radius: 10px;
       background-color: #f0f0f0;
+      max-width: calc(100vw - 440px); /* Adjusted for sidebar width and padding */
+      margin-left: 400px;
+      margin-top: 20px; /* Adjusted for spacing */
       overflow: hidden;
-      margin-left: 400px; /* Adjusted for sidebar width */
-      padding: 20px;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
 
     .gallery img {
-      width: 100%;
-      height: auto;
-      display: none;
-    }
-
-    .gallery.active img {
-      display: block;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      max-height: calc(100vh - 120px); /* Adjusted for header, padding, and button height */
+      border-radius: 5px;
+      margin-right: 10px; /* Adjusted for spacing between images */
     }
 
     .nav-buttons {
@@ -162,20 +169,23 @@
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
-    <div class="line"></div> <!-- Continuous line -->
+    <div class="line"></div>
     <p style="margin-top: 50px;">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
   </div>
 
-  <div class="gallery">
-    <img src="blank.png" alt="Blank">
-    <img src="blanket.jpg" alt="Blanket">
-    <div class="nav-buttons">
-      <button onclick="prevImage()">Previous</button>
-      <button onclick="randomImage()">Random</button>
-      <button onclick="nextImage()">Next</button>
+  <div class="gallery-container">
+    <div class="gallery">
+      <img src="blank.png" alt="Blank">
+      <img src="blanket.jpg" alt="Blanket">
     </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button onclick="prevImage()">Previous</button>
+    <button onclick="randomImage()">Random</button>
+    <button onclick="nextImage()">Next</button>
   </div>
 
   <script>
@@ -197,4 +207,18 @@
     }
 
     function nextImage() {
-      currentImage = (currentImage + 1)
+      currentImage = (currentImage + 1) % totalImages;
+      showImage(currentImage);
+    }
+
+    function showImage(index) {
+      var images = document.querySelectorAll('.gallery img');
+      for (var i = 0; i < images.length; i++) {
+        images[i].style.display = 'none';
+      }
+      images[index].style.display = 'block';
+    }
+  </script>
+</body>
+
+</html>
