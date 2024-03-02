@@ -84,6 +84,40 @@
       border-top: 1px solid #000;
       margin: 50px 0;
     }
+
+    .gallery {
+      position: relative;
+      width: calc(100% - 400px); /* Adjusted for sidebar width */
+      height: calc(100vh - 50px); /* Adjusted for header height and some spacing */
+      background-color: #f0f0f0;
+      overflow: hidden;
+      margin-left: 400px; /* Adjusted for sidebar width */
+      padding: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      display: none;
+    }
+
+    .gallery.active img {
+      display: block;
+    }
+
+    .nav-buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .nav-buttons button {
+      margin-right: 10px;
+      padding: 5px 10px;
+      background-color: #ddd;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -134,13 +168,33 @@
     </p>
   </div>
 
-  <script>
-    function toggleList(element) {
-      var ul = element.nextElementSibling;
-      element.parentElement.classList.toggle("open");
-      ul.style.display = (ul.style.display === "none") ? "block" : "none";
-    }
-  </script>
-</body>
+  <div class="gallery">
+    <img src="blank.png" alt="Blank">
+    <img src="blanket.jpg" alt="Blanket">
+    <div class="nav-buttons">
+      <button onclick="prevImage()">Previous</button>
+      <button onclick="randomImage()">Random</button>
+      <button onclick="nextImage()">Next</button>
+    </div>
+  </div>
 
-</html>
+  <script>
+    var currentImage = 0;
+    var totalImages = document.querySelectorAll('.gallery img').length;
+
+    function prevImage() {
+      currentImage = (currentImage - 1 + totalImages) % totalImages;
+      showImage(currentImage);
+    }
+
+    function randomImage() {
+      var randomIndex = Math.floor(Math.random() * totalImages);
+      while (randomIndex === currentImage) {
+        randomIndex = Math.floor(Math.random() * totalImages);
+      }
+      currentImage = randomIndex;
+      showImage(currentImage);
+    }
+
+    function nextImage() {
+      currentImage = (currentImage + 1)
