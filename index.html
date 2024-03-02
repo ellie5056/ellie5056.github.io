@@ -101,15 +101,15 @@
       flex-wrap: nowrap;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      -webkit-overflow-scrolling: touch;
     }
 
     .gallery img {
       flex: 0 0 auto;
       scroll-snap-align: start;
-      max-height: calc(100vh - 120px); /* Adjusted for header, padding, and button height */
+      max-height: calc(100vh - 120px);
       border-radius: 5px;
-      margin-right: 10px; /* Adjusted for spacing between images */
+      margin-right: 10px;
     }
 
     .nav-buttons {
@@ -176,10 +176,7 @@
   </div>
 
   <div class="gallery-container">
-    <div class="gallery">
-      <img src="blank.png" alt="Blank">
-      <img src="blanket.jpg" alt="Blanket">
-    </div>
+    <div class="gallery" id="imageGallery"></div>
   </div>
 
   <div class="nav-buttons">
@@ -190,7 +187,17 @@
 
   <script>
     var currentImage = 0;
-    var totalImages = document.querySelectorAll('.gallery img').length;
+    var images = ["blank.png", "blanket.jpg"]; // Add more image filenames here
+    var totalImages = images.length;
+    var galleryContainer = document.getElementById("imageGallery");
+
+    // Create img elements for each image
+    images.forEach(function(image) {
+      var imgElement = document.createElement("img");
+      imgElement.src = image;
+      imgElement.alt = "Image";
+      galleryContainer.appendChild(imgElement);
+    });
 
     function prevImage() {
       currentImage = (currentImage - 1 + totalImages) % totalImages;
