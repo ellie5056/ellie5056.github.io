@@ -63,6 +63,12 @@
     .sidebar-tier ul li {
       list-style-type: none; /* Remove default list styles */
       text-indent: 20px; /* Indent list items by 20px */
+      display: none; /* Hide list items by default */
+      transition: display 0.3s ease-in-out; /* Add transition for smooth display change */
+    }
+
+    .sidebar-tier.open ul li {
+      display: block; /* Show list items when parent is open */
     }
 
     .content {
@@ -122,6 +128,10 @@
       var ul = element.nextElementSibling;
       element.parentElement.classList.toggle("open");
       ul.style.display = (ul.style.display === "none") ? "block" : "none";
+      var lis = ul.querySelectorAll("li");
+      for (var i = 0; i < lis.length; i++) {
+        lis[i].style.display = (ul.style.display === "none") ? "none" : "block";
+      }
     }
   </script>
 </body>
