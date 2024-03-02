@@ -111,7 +111,6 @@
       flex: 0 0 auto;
       scroll-snap-align: start;
       max-width: 100%;
-      max-height: 100vh;
       border-radius: 5px;
       margin-right: 10px;
     }
@@ -191,6 +190,7 @@
       <img src="blanket.jpg" alt="Image">
       <img src="royyamaha.png" alt="image">
       <img src="royyamaha.jpg" alt="image">
+      <img src="long-image.jpg" alt="image">
     </div>
     <div class="nav-buttons">
       <button onclick="prevImage()">Previous</button>
@@ -201,7 +201,7 @@
 
   <script>
     var currentImage = 0;
-    var images = ["blank.png", "blanket.jpg", "royyamaha.png", "royyamaha.jpg"]; // Add more image filenames here
+    var images = ["blank.png", "blanket.jpg", "royyamaha.png", "royyamaha.jpg", "long-image.jpg"]; // Add more image filenames here
     var totalImages = images.length;
     var galleryContainer = document.getElementById("imageGallery");
 
@@ -241,6 +241,19 @@
         images[i].style.display = 'none';
       }
       images[index].style.display = 'block';
+      adjustImageSize(images[index]);
+    }
+
+    function adjustImageSize(image) {
+      var viewportAspectRatio = window.innerWidth / window.innerHeight;
+      var imageAspectRatio = image.naturalWidth / image.naturalHeight;
+      if (imageAspectRatio > viewportAspectRatio) {
+        image.style.height = '100%';
+        image.style.width = 'auto';
+      } else {
+        image.style.width = '100%';
+        image.style.height = 'auto';
+      }
     }
   </script>
 </body>
